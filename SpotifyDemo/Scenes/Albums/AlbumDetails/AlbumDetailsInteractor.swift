@@ -10,31 +10,26 @@ import UIKit
 
 protocol AlbumDetailsBusinessLogic
 {
-    func fetchAlbums(request: AlbumDetails.FetchAlbums.Request)
+    func fetchAlbum()
 }
 
 protocol AlbumDetailsDataStore
 {
-    var fetchedAlbums: [Album] { get set }
     var selectedAlbum: Album? { get set }
 }
 
 class AlbumDetailsInteractor: AlbumDetailsBusinessLogic, AlbumDetailsDataStore
 {
     var presenter: AlbumDetailsPresentationLogic?
-    var worker: AlbumDetailsWorker?
-    var fetchedAlbums: [Album] = []
     var selectedAlbum: Album?
     
     // MARK: Methods
     
-    func fetchAlbums(request: AlbumDetails.FetchAlbums.Request)
+    func fetchAlbum()
     {
-         worker = AlbumDetailsWorker()
-         worker?.fetchAlbums{ (fetchedAlbums) in
-            self.fetchedAlbums = fetchedAlbums
-            let response = AlbumDetails.FetchAlbums.Response(fetchedAlbums: fetchedAlbums)
-            self.presenter?.presentAlbums(response: response)
-         }
+        if let fetchedAlbums = selectedAlbum {
+            let response = AlbumDetails.FetchAlbums.Response(fetchedAlbum: fetchedAlbums)
+            self.presenter?.presentAlbum(response: response)
+        }
     }
 }

@@ -4,7 +4,6 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -12,15 +11,28 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="ArtistDetailsCell" customModule="SpotifyDemo" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ArtistDetailsCell" id="HwI-0l-ly4" customClass="ArtistDetailsCell" customModule="SpotifyDemo" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="436" height="100"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                <rect key="frame" x="0.0" y="0.0" width="436" height="100"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ih6-u7-qd1">
-                        <rect key="frame" x="4" y="14.5" width="42" height="21"/>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="f6e-Xi-OLD">
+                        <rect key="frame" x="10" y="10" width="80" height="80"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="80" id="oth-9U-Znh"/>
+                            <constraint firstAttribute="height" constant="80" id="tXu-Xz-Jwa"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Artist Name" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YAg-Wl-8Sb">
+                        <rect key="frame" x="100" y="25" width="326" height="20.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="available on:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W73-Y6-ar5">
+                        <rect key="frame" x="100" y="49.5" width="94.5" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -28,15 +40,21 @@
                 </subviews>
             </view>
             <constraints>
-                <constraint firstItem="ih6-u7-qd1" firstAttribute="centerY" secondItem="ZTg-uK-7eu" secondAttribute="centerY" id="IoH-Cl-KJs"/>
-                <constraint firstItem="ih6-u7-qd1" firstAttribute="centerX" secondItem="ZTg-uK-7eu" secondAttribute="centerX" id="hDe-XS-XiA"/>
+                <constraint firstItem="W73-Y6-ar5" firstAttribute="leading" secondItem="YAg-Wl-8Sb" secondAttribute="leading" id="J6K-ze-elW"/>
+                <constraint firstItem="f6e-Xi-OLD" firstAttribute="leading" secondItem="DHg-qu-Mbm" secondAttribute="leading" constant="10" id="PL3-1p-UGa"/>
+                <constraint firstItem="YAg-Wl-8Sb" firstAttribute="centerY" secondItem="DHg-qu-Mbm" secondAttribute="centerY" constant="-15" id="YXy-9A-X7i"/>
+                <constraint firstItem="YAg-Wl-8Sb" firstAttribute="leading" secondItem="f6e-Xi-OLD" secondAttribute="trailing" constant="10" id="Zu4-jc-JQU"/>
+                <constraint firstItem="f6e-Xi-OLD" firstAttribute="centerY" secondItem="DHg-qu-Mbm" secondAttribute="centerY" id="ifw-0K-fjU"/>
+                <constraint firstItem="W73-Y6-ar5" firstAttribute="centerY" secondItem="DHg-qu-Mbm" secondAttribute="centerY" constant="10" id="jcs-03-kmo"/>
+                <constraint firstItem="DHg-qu-Mbm" firstAttribute="trailing" secondItem="YAg-Wl-8Sb" secondAttribute="trailing" constant="10" id="lbd-gS-eOn"/>
             </constraints>
-            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <viewLayoutGuide key="safeArea" id="DHg-qu-Mbm"/>
+            <size key="customSize" width="436" height="102"/>
             <connections>
-                <outlet property="title" destination="ih6-u7-qd1" id="ylT-av-g4k"/>
+                <outlet property="albumImage" destination="f6e-Xi-OLD" id="XmR-Eh-GtB"/>
+                <outlet property="nameLabel" destination="YAg-Wl-8Sb" id="098-nV-rRF"/>
             </connections>
+            <point key="canvasLocation" x="152" y="81"/>
         </collectionViewCell>
     </objects>
 </document>
-
-

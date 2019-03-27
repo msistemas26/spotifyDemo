@@ -11,7 +11,7 @@ import UIKit
 protocol ArtistListBusinessLogic
 {
     func fetchArtists(request: ArtistList.FetchArtists.Request)
-    //func filterArtistBy(artistName: String?)
+    func selectArtistBy(index: Int)
 }
 
 protocol ArtistListDataStore
@@ -29,32 +29,21 @@ class ArtistListInteractor: ArtistListBusinessLogic, ArtistListDataStore
     
     // MARK: Methods
     
+    func selectArtistBy(index: Int) {
+        selectedArtist = fetchedArtists[index]
+    }
+    
     func fetchArtists(request: ArtistList.FetchArtists.Request)
     {
         worker = ArtistListWorker()
-        worker?.searchArtistsBy(name: request.artistName){ (fetchedArtists) in
+        worker?.searchArtistsBy(name: request.artistName){ (fetchedArtists, error) in
+            if let error = error {
+                self.presenter?.showError(error: error)
+                return
+            }
             self.fetchedArtists = fetchedArtists
             let response = ArtistList.FetchArtists.Response(fetchedArtists: fetchedArtists)
             self.presenter?.presentArtists(response: response)
          }
     }
-//
-//    func filterArtistBy(artistName: String?)
-//    {
-//        guard let artistName = artistName?.uppercased(), !artistName.isEmpty  else {
-//            let response = ArtistList.FetchArtists.Response(fetchedArtists: self.fetchedArtists)
-//            self.presenter?.presentArtists(response: response)
-//            return
-//        }
-//
-//        let filteredArtists = fetchedArtists.filter{
-//            if let name = $0.name?.uppercased() {
-//                return name.contains(artistName)
-//            } else {
-//                return false
-//            }
-//        }
-//        let response = ArtistList.FetchArtists.Response(fetchedArtists: filteredArtists)
-//        self.presenter?.presentArtists(response: response)
-//    }
 }

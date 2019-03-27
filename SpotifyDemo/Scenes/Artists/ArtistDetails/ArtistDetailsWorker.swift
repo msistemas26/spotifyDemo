@@ -10,17 +10,12 @@ import UIKit
 
 class ArtistDetailsWorker
 {
-    func fetchArtistAlbums(completionHandler completion: @escaping ([ArtistAlbum]) -> Void)
+    let dataProviderApi = DataProviderApi()
+    
+    func searchAlbumsBy(artistId: String, completionHandler completion: @escaping ([Album], Error?) -> Void)
     {
-        var fetchedArtistAlbums:[ArtistAlbum] = []
-        for index in 1...50 {
-            fetchedArtistAlbums.append(ArtistAlbum(description: "Demo \(index)"))
+        dataProviderApi.searchAlbumsBy(artistId: artistId) { (albums, error) in
+            completion(albums, error)
         }
-        completion(fetchedArtistAlbums)
     }
-}
-
-struct ArtistAlbum
-{
-    var description: String?
 }

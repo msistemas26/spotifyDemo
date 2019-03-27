@@ -10,7 +10,7 @@ import UIKit
 
 protocol AlbumDetailsRoutingLogic
 {
-    func showSelectedAlbum(withAlbumIndex: Int)
+    func openSpotify()
 }
 
 protocol AlbumDetailsDataPassing
@@ -25,30 +25,11 @@ class AlbumDetailsRouter: NSObject, AlbumDetailsRoutingLogic, AlbumDetailsDataPa
     
     // MARK: Routing
     
-    func showSelectedAlbum(withAlbumIndex: Int)
+    func openSpotify()
     {
-        /*
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let destinationVC = storyboard.instantiateViewController(withIdentifier: "ViewController") as! ViewController
-        var destinationDS = destinationVC.router!.dataStore!
-        passDataToConversation(source: dataStore!, destination: &destinationDS)
-        navigateToConversation(source: viewController!, destination: destinationVC)
-         */
+        if let link = dataStore?.selectedAlbum?.externalUrls?.spotify,
+            let url = URL(string: link) {
+            UIApplication.shared.open(url, options: [:])
+        }
     }
-    
-    /*
-    // MARK: Navigation
-    
-    func navigateToConversation(source: AlbumDetailsViewController, destination: ViewController)
-    {
-        source.show(destination, sender: nil)
-    }
-    
-    // MARK: Passing data
-    
-    func passDataToConversation(source: AlbumDetailsDataStore, destination: inout DataStore)
-    {
-        destination.value = ""
-    }
-    */
 }

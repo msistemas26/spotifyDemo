@@ -12,10 +12,10 @@ class ArtistListWorker
 {
     let dataProviderApi = DataProviderApi()
     
-    func searchArtistsBy(name: String?, completionHandler completion: @escaping ([Artist]) -> Void)
+    func searchArtistsBy(name: String?, completionHandler completion: @escaping ([Artist],Error?) -> Void)
     {
-        dataProviderApi.searchArtistsBy(name: name) { (artists) in
-            completion(artists)
+        dataProviderApi.searchArtistsBy(name: name) { (artists, error) in
+            completion(artists, error)
         }
     }
 }

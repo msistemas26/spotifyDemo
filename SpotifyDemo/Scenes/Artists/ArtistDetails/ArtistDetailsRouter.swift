@@ -10,7 +10,7 @@ import UIKit
 
 protocol ArtistDetailsRoutingLogic
 {
-    func showSelectedArtistAlbum(withArtistAlbumIndex: Int)
+    func showSelectedArtistAlbum()
 }
 
 protocol ArtistDetailsDataPassing
@@ -25,30 +25,29 @@ class ArtistDetailsRouter: NSObject, ArtistDetailsRoutingLogic, ArtistDetailsDat
     
     // MARK: Routing
     
-    func showSelectedArtistAlbum(withArtistAlbumIndex: Int)
+    func showSelectedArtistAlbum()
     {
-        /*
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let destinationVC = storyboard.instantiateViewController(withIdentifier: "ViewController") as! ViewController
-        var destinationDS = destinationVC.router!.dataStore!
-        passDataToConversation(source: dataStore!, destination: &destinationDS)
-        navigateToConversation(source: viewController!, destination: destinationVC)
-         */
-    }
-    
-    /*
-    // MARK: Navigation
-    
-    func navigateToConversation(source: ArtistDetailsViewController, destination: ViewController)
-    {
-        source.show(destination, sender: nil)
+        if (dataStore?.selectedArtist) != nil {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let destinationVC = storyboard.instantiateViewController(withIdentifier: "AlbumDetailsViewController") as! AlbumDetailsViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToAlbumDetails(source: dataStore!, destination: &destinationDS)
+            navigateToAlbumDetails(source: viewController!, destination: destinationVC)
+        }
     }
     
     // MARK: Passing data
     
-    func passDataToConversation(source: ArtistDetailsDataStore, destination: inout DataStore)
+    func passDataToAlbumDetails(source: ArtistDetailsDataStore, destination: inout AlbumDetailsDataStore)
     {
-        destination.value = ""
+        if let selectedArtistAlbum = source.selectedArtistAlbum {
+            destination.selectedAlbum = selectedArtistAlbum
+        }
     }
-    */
+    
+    // MARK: Navigation
+    
+    func navigateToAlbumDetails(source: ArtistDetailsViewController, destination: AlbumDetailsViewController) {
+        source.show(destination, sender: nil)
+    }
 }

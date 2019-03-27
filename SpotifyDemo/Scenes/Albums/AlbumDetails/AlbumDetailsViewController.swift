@@ -10,14 +10,34 @@ import UIKit
 
 protocol AlbumDetailsDisplayLogic: class
 {
-    func displayAlbums(viewModel: AlbumDetails.FetchAlbums.ViewModel)
+    func displayAlbum(viewModel: AlbumDetails.FetchAlbums.ViewModel)
 }
 
 class AlbumDetailsViewController: UIViewController, AlbumDetailsDisplayLogic
 {
     var interactor: AlbumDetailsBusinessLogic?
     var router: (NSObjectProtocol & AlbumDetailsRoutingLogic & AlbumDetailsDataPassing)?
-    var displayedAlbums: [AlbumDetails.FetchAlbums.ViewModel.DisplayedAlbum] = []
+    var displayedAlbum: AlbumDetails.FetchAlbums.ViewModel.DisplayedAlbum?
+    
+    @IBOutlet weak var nameLabel: UILabel!{
+        didSet {
+            nameLabel.textColor = DefaultColors.artistNameColor
+            nameLabel.font = DefaultFonts.RobotoRegularTitle
+        }
+    }
+    
+    @IBOutlet weak var albumImage: UIImageView!{
+        didSet {
+            albumImage.backgroundColor = DefaultColors.graySelectedColor
+        }
+    }
+    
+    @IBOutlet weak var goToButtom: UIButton!{
+        didSet {
+            goToButtom.backgroundColor = DefaultColors.greenColor
+            goToButtom.layer.cornerRadius = 10.0
+        }
+    }
     
     // MARK: Object lifecycle
     
@@ -49,16 +69,24 @@ class AlbumDetailsViewController: UIViewController, AlbumDetailsDisplayLogic
         router.dataStore = interactor
     }
     
-    // MARK: Routing
+    //Set Theme()
+    func setupTheme() {
+        navigationController?.navigationBar.barTintColor = DefaultColors.grayColor
+        view.backgroundColor = DefaultColors.graySelectedColor
+        self.navigationItem.hidesBackButton = true
+        let image = UIImage(named: "back")
+        let renderedImage = image?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
+        let backButton = UIBarButtonItem(image: renderedImage, style: .plain, target: self, action: #selector(backAction))
+        backButton.tintColor = DefaultColors.greenColor
+        self.navigationItem.leftBarButtonItem = backButton
+    }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
-    {
-        if let scene = segue.identifier {
-            let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
-            if let router = router, router.responds(to: selector) {
-                router.perform(selector, with: segue)
-            }
-        }
+    @objc func backAction() {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    @IBAction func goToSpotify(_ sender: UIButton) {
+        router?.openSpotify()
     }
     
     // MARK: View lifecycle
@@ -66,21 +94,27 @@ class AlbumDetailsViewController: UIViewController, AlbumDetailsDisplayLogic
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        setupTheme()
         fetchAlbums()
-        setUpTableView()
     }
     
     // MARK: Methods
     
     func fetchAlbums()
     {
-        let request = AlbumDetails.FetchAlbums.Request()
-        interactor?.fetchAlbums(request: request)
+        interactor?.fetchAlbum()
     }
     
-    func displayAlbums(viewModel: AlbumDetails.FetchAlbums.ViewModel)
+    func displayAlbum(viewModel: AlbumDetails.FetchAlbums.ViewModel)
     {
-        displayedAlbums = viewModel.displayedAlbums
+        displayedAlbum = viewModel.displayedAlbum
+        
+        nameLabel.text = displayedAlbum?.name
+        
+        if let imageUrl = displayedAlbum?.imageUrl,
+            let url = URL(string: imageUrl)  {
+            albumImage.af_setImage(withURL: url)
+        }
     }
 }
 

@@ -26,7 +26,7 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Artist Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W1X-jg-bI2">
-                        <rect key="frame" x="100" y="24.5" width="91" height="21"/>
+                        <rect key="frame" x="100" y="24.5" width="326" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -53,6 +53,7 @@
                 <constraint firstItem="Hr6-sf-vZj" firstAttribute="leading" secondItem="ZTg-uK-7eu" secondAttribute="leading" constant="10" id="fcO-3Y-rP3"/>
                 <constraint firstItem="Hr6-sf-vZj" firstAttribute="centerY" secondItem="ZTg-uK-7eu" secondAttribute="centerY" id="gDX-Cy-f8Y"/>
                 <constraint firstItem="tPg-8f-hJM" firstAttribute="centerY" secondItem="iE2-9M-GGw" secondAttribute="centerY" id="mVO-gA-1jc"/>
+                <constraint firstItem="ZTg-uK-7eu" firstAttribute="trailing" secondItem="W1X-jg-bI2" secondAttribute="trailing" constant="10" id="p5j-Za-sOs"/>
                 <constraint firstItem="W1X-jg-bI2" firstAttribute="centerY" secondItem="ZTg-uK-7eu" secondAttribute="centerY" constant="-15" id="uIs-WG-CjR"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>

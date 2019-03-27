@@ -10,21 +10,33 @@ import UIKit
 
 class ArtistDetailsCell: UICollectionViewCell {
     
-    @IBOutlet weak var title: UILabel!
+    @IBOutlet weak var albumImage: UIImageView!{
+        didSet {
+            albumImage.backgroundColor = DefaultColors.graySelectedColor
+        }
+    }
+    
+    @IBOutlet weak var nameLabel: UILabel!{
+        didSet {
+            nameLabel.textColor = DefaultColors.artistNameColor
+            nameLabel.font = DefaultFonts.RobotoRegular
+        }
+    }
     
     var displayedArtistAlbum: ArtistDetails.FetchArtistAlbums.ViewModel.DisplayedArtistAlbum!
     
     func setup(withDisplayedArtistAlbum displayedArtistAlbum: ArtistDetails.FetchArtistAlbums.ViewModel.DisplayedArtistAlbum) {
         self.displayedArtistAlbum = displayedArtistAlbum
         showData()
-        setThemes()
+        self.backgroundColor = DefaultColors.darkGrayColor
+        showData()
     }
     
     private func showData() {
-        title.text = displayedArtistAlbum.description
-    }
-    
-    private func setThemes() {
-        title.textColor = UIColor.black
+        nameLabel.text = displayedArtistAlbum.name
+        if let imageUrl = displayedArtistAlbum.imageUrl,
+            let url = URL(string: imageUrl)  {
+            albumImage.af_setImage(withURL: url)
+        }
     }
 }

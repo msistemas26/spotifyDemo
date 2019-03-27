@@ -10,7 +10,7 @@ import UIKit
 
 protocol AlbumDetailsPresentationLogic
 {
-     func presentAlbums(response: AlbumDetails.FetchAlbums.Response)
+     func presentAlbum(response: AlbumDetails.FetchAlbums.Response)
 }
 
 class AlbumDetailsPresenter: AlbumDetailsPresentationLogic
@@ -19,16 +19,11 @@ class AlbumDetailsPresenter: AlbumDetailsPresentationLogic
   
      // MARK: Methods
   
-     func presentAlbums(response: AlbumDetails.FetchAlbums.Response)
+     func presentAlbum(response: AlbumDetails.FetchAlbums.Response)
      {
-     	var fetchedAlbums: [AlbumDetails.FetchAlbums.ViewModel.DisplayedAlbum] = []
-        for fetchedAlbum in response.fetchedAlbums
-        {
-            let displayedAlbums = AlbumDetails.FetchAlbums.ViewModel.DisplayedAlbum(description: fetchedAlbum.description)
-            
-            fetchedAlbums.append(displayedAlbums)
-        }
-        let viewModel = AlbumDetails.FetchAlbums.ViewModel(displayedAlbums: fetchedAlbums)
-        viewController?.displayAlbums(viewModel: viewModel)
+        let fetchedAlbum = response.fetchedAlbum
+        let displayedAlbum = AlbumDetails.FetchAlbums.ViewModel.DisplayedAlbum(id: fetchedAlbum.id, name: fetchedAlbum.name, imageUrl: fetchedAlbum.images?.first?.url, externalUrl: fetchedAlbum.externalUrls?.spotify)
+        let viewModel = AlbumDetails.FetchAlbums.ViewModel(displayedAlbum: displayedAlbum)
+        viewController?.displayAlbum(viewModel: viewModel)
      }
 }

@@ -15,16 +15,19 @@ enum ArtistDetails
     {
         struct Request
         {
+            var artistId: String?
         }
         struct Response
         {
-            var fetchedArtistAlbums: [ArtistAlbum]
+            var fetchedArtistAlbums: [Album]
         }
         struct ViewModel
         {
             struct DisplayedArtistAlbum
             {
-                var description: String?
+                let id: String
+                let name: String?
+                let imageUrl: String?
             }
             var displayedArtistAlbums: [DisplayedArtistAlbum]
         }

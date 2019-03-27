@@ -12,6 +12,7 @@ import NVActivityIndicatorView
 protocol ArtistListDisplayLogic: class
 {
     func displayArtists(viewModel: ArtistList.FetchArtists.ViewModel)
+    func showError(message: String)
 }
 
 class ArtistListViewController: UIViewController, ArtistListDisplayLogic, NVActivityIndicatorViewable
@@ -66,18 +67,6 @@ class ArtistListViewController: UIViewController, ArtistListDisplayLogic, NVActi
         router.dataStore = interactor
     }
     
-    // MARK: Routing
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
-    {
-        if let scene = segue.identifier {
-            let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
-            if let router = router, router.responds(to: selector) {
-                router.perform(selector, with: segue)
-            }
-        }
-    }
-    
     // MARK: View lifecycle
     
     override func viewDidLoad()
@@ -127,8 +116,12 @@ class ArtistListViewController: UIViewController, ArtistListDisplayLogic, NVActi
         refreshControl.endRefreshing()
         self.stopAnimating(nil)
         displayedArtists = viewModel.displayedArtists
-        emptyLabel.isHidden = !(displayedArtists.count > 0)
+        emptyLabel.isHidden = displayedArtists.count > 0
         collectionView.reloadData()
+    }
+    
+    func showError(message: String){
+        self.showToast(message: message)
     }
 }
 
@@ -181,6 +174,11 @@ extension ArtistListViewController: UICollectionViewDelegate, UICollectionViewDa
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        interactor?.selectArtistBy(index: indexPath.row)
+        router?.showSelectedArtist()
     }
 }
 

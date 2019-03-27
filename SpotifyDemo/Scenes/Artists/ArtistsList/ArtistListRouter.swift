@@ -10,7 +10,7 @@ import UIKit
 
 protocol ArtistListRoutingLogic
 {
-    func showSelectedArtist(withArtistIndex: Int)
+    func showSelectedArtist()
 }
 
 protocol ArtistListDataPassing
@@ -25,30 +25,30 @@ class ArtistListRouter: NSObject, ArtistListRoutingLogic, ArtistListDataPassing
     
     // MARK: Routing
     
-    func showSelectedArtist(withArtistIndex: Int)
+    func showSelectedArtist()
     {
-        /*
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let destinationVC = storyboard.instantiateViewController(withIdentifier: "ViewController") as! ViewController
-        var destinationDS = destinationVC.router!.dataStore!
-        passDataToConversation(source: dataStore!, destination: &destinationDS)
-        navigateToConversation(source: viewController!, destination: destinationVC)
-         */
-    }
-    
-    /*
-    // MARK: Navigation
-    
-    func navigateToConversation(source: ArtistListViewController, destination: ViewController)
-    {
-        source.show(destination, sender: nil)
+        if (dataStore?.selectedArtist) != nil {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let destinationVC = storyboard.instantiateViewController(withIdentifier: "ArtistDetailsViewController") as! ArtistDetailsViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToArtistDetails(source: dataStore!, destination: &destinationDS)
+            navigateToArtistDetails(source: viewController!, destination: destinationVC)
+        }
     }
     
     // MARK: Passing data
     
-    func passDataToConversation(source: ArtistListDataStore, destination: inout DataStore)
+    func passDataToArtistDetails(source: ArtistListDataStore, destination: inout ArtistDetailsDataStore)
     {
-        destination.value = ""
+        if let selectedArtist = source.selectedArtist {
+            destination.selectedArtist = selectedArtist
+        }
     }
-    */
+    
+    // MARK: Navigation
+    
+    func navigateToArtistDetails(source: ArtistListViewController, destination: ArtistDetailsViewController)
+    {
+        source.show(destination, sender: nil)
+    }
 }

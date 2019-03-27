@@ -11,30 +11,48 @@ import UIKit
 protocol ArtistDetailsBusinessLogic
 {
     func fetchArtistAlbums(request: ArtistDetails.FetchArtistAlbums.Request)
+    func getArtistName() -> String
+    func selectAlbumBy(index: Int)
 }
 
 protocol ArtistDetailsDataStore
 {
-    var fetchedArtistAlbums: [ArtistAlbum] { get set }
-    var selectedArtistAlbum: ArtistAlbum? { get set }
+    var fetchedArtistAlbums: [Album] { get set }
+    var selectedArtistAlbum: Album? { get set }
+    var selectedArtist: Artist? { get set }
 }
 
 class ArtistDetailsInteractor: ArtistDetailsBusinessLogic, ArtistDetailsDataStore
 {
     var presenter: ArtistDetailsPresentationLogic?
     var worker: ArtistDetailsWorker?
-    var fetchedArtistAlbums: [ArtistAlbum] = []
-    var selectedArtistAlbum: ArtistAlbum?
+    var fetchedArtistAlbums: [Album] = []
+    var selectedArtistAlbum: Album?
+    var selectedArtist: Artist?
     
     // MARK: Methods
     
+    func getArtistName() -> String {
+        return selectedArtist?.name ?? "Albums"
+    }
+    
+    func selectAlbumBy(index: Int) {
+        selectedArtistAlbum = fetchedArtistAlbums[index]
+    }
+    
     func fetchArtistAlbums(request: ArtistDetails.FetchArtistAlbums.Request)
     {
-         worker = ArtistDetailsWorker()
-         worker?.fetchArtistAlbums{ (fetchedArtistAlbums) in
-            self.fetchedArtistAlbums = fetchedArtistAlbums
-            let response = ArtistDetails.FetchArtistAlbums.Response(fetchedArtistAlbums: fetchedArtistAlbums)
-            self.presenter?.presentArtistAlbums(response: response)
-         }
+        if let selectedArtistId = selectedArtist?.id {
+            worker = ArtistDetailsWorker()
+            worker?.searchAlbumsBy(artistId: selectedArtistId){ (fetchedArtistAlbums, error) in
+                if let error = error {
+                    self.presenter?.showError(error: error)
+                    return
+                }
+                self.fetchedArtistAlbums = fetchedArtistAlbums
+                let response = ArtistDetails.FetchArtistAlbums.Response(fetchedArtistAlbums: fetchedArtistAlbums)
+                self.presenter?.presentArtistAlbums(response: response)
+            }
+        }
     }
 }

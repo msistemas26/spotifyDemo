@@ -7,3 +7,10 @@
 //
 
 import Foundation
+import UIKit
+
+struct DefaultFonts {
+    static let RobotoRegular =  UIFont(name: "Roboto-Regular", size: 16.0)
+    static let RobotoRegularTitle =  UIFont(name: "Roboto-Regular", size: 25.0)
+    static let RobotoLight =  UIFont(name: "Roboto-Light", size: 16.0)
+}

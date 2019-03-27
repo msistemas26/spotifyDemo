@@ -10,7 +10,8 @@ import UIKit
 
 protocol ArtistListPresentationLogic
 {
-     func presentArtists(response: ArtistList.FetchArtists.Response)
+    func presentArtists(response: ArtistList.FetchArtists.Response)
+    func showError(error: Error)
 }
 
 class ArtistListPresenter: ArtistListPresentationLogic
@@ -31,4 +32,8 @@ class ArtistListPresenter: ArtistListPresentationLogic
         let viewModel = ArtistList.FetchArtists.ViewModel(displayedArtists: fetchedArtists)
         viewController?.displayArtists(viewModel: viewModel)
      }
+    
+    func showError(error: Error){
+        viewController?.showError(message: error.localizedDescription)
+    }
 }

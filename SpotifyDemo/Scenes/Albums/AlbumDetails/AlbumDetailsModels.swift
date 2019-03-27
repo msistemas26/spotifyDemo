@@ -18,15 +18,18 @@ enum AlbumDetails
         }
         struct Response
         {
-            var fetchedAlbums: [Album]
+            var fetchedAlbum: Album
         }
         struct ViewModel
         {
             struct DisplayedAlbum
             {
-                var description: String?
+                let id: String
+                let name: String?
+                let imageUrl: String?
+                let externalUrl: String?
             }
-            var displayedAlbums: [DisplayedAlbum]
+            var displayedAlbum: DisplayedAlbum
         }
     }
 }
