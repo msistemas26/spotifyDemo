@@ -23,6 +23,13 @@ class ArtistDetailsCell: UICollectionViewCell {
         }
     }
     
+    @IBOutlet weak var availableLabel: UILabel!{
+        didSet {
+            availableLabel.textColor = DefaultColors.artistFollowersColor
+            availableLabel.font = DefaultFonts.RobotoRegular
+        }
+    }
+    
     var displayedArtistAlbum: ArtistDetails.FetchArtistAlbums.ViewModel.DisplayedArtistAlbum!
     
     func setup(withDisplayedArtistAlbum displayedArtistAlbum: ArtistDetails.FetchArtistAlbums.ViewModel.DisplayedArtistAlbum) {
@@ -34,6 +41,9 @@ class ArtistDetailsCell: UICollectionViewCell {
     
     private func showData() {
         nameLabel.text = displayedArtistAlbum.name
+        if let availableMarket = displayedArtistAlbum.availableMarkets {
+            availableLabel.text = "Available on: \(availableMarket)"
+        }
         if let imageUrl = displayedArtistAlbum.imageUrl,
             let url = URL(string: imageUrl)  {
             albumImage.af_setImage(withURL: url)

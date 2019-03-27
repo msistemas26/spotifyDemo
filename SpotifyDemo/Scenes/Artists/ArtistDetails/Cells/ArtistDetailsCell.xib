@@ -26,13 +26,16 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Artist Name" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YAg-Wl-8Sb">
-                        <rect key="frame" x="100" y="25" width="326" height="20.5"/>
+                        <rect key="frame" x="100" y="10" width="326" height="20.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="available on:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W73-Y6-ar5">
-                        <rect key="frame" x="100" y="49.5" width="94.5" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="available on:" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W73-Y6-ar5">
+                        <rect key="frame" x="100" y="34.5" width="326" height="55.5"/>
+                        <constraints>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="55.5" id="w87-mz-CQ7"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -40,18 +43,21 @@
                 </subviews>
             </view>
             <constraints>
+                <constraint firstItem="DHg-qu-Mbm" firstAttribute="trailing" secondItem="W73-Y6-ar5" secondAttribute="trailing" constant="10" id="11K-7t-1W4"/>
                 <constraint firstItem="W73-Y6-ar5" firstAttribute="leading" secondItem="YAg-Wl-8Sb" secondAttribute="leading" id="J6K-ze-elW"/>
                 <constraint firstItem="f6e-Xi-OLD" firstAttribute="leading" secondItem="DHg-qu-Mbm" secondAttribute="leading" constant="10" id="PL3-1p-UGa"/>
-                <constraint firstItem="YAg-Wl-8Sb" firstAttribute="centerY" secondItem="DHg-qu-Mbm" secondAttribute="centerY" constant="-15" id="YXy-9A-X7i"/>
+                <constraint firstItem="W73-Y6-ar5" firstAttribute="top" secondItem="YAg-Wl-8Sb" secondAttribute="bottom" constant="4" id="VaM-hz-3Xp"/>
+                <constraint firstItem="f6e-Xi-OLD" firstAttribute="top" secondItem="DHg-qu-Mbm" secondAttribute="top" constant="10" id="X7M-pW-Ga2"/>
+                <constraint firstItem="YAg-Wl-8Sb" firstAttribute="top" secondItem="DHg-qu-Mbm" secondAttribute="top" constant="10" id="Yjg-aN-9VS"/>
                 <constraint firstItem="YAg-Wl-8Sb" firstAttribute="leading" secondItem="f6e-Xi-OLD" secondAttribute="trailing" constant="10" id="Zu4-jc-JQU"/>
-                <constraint firstItem="f6e-Xi-OLD" firstAttribute="centerY" secondItem="DHg-qu-Mbm" secondAttribute="centerY" id="ifw-0K-fjU"/>
-                <constraint firstItem="W73-Y6-ar5" firstAttribute="centerY" secondItem="DHg-qu-Mbm" secondAttribute="centerY" constant="10" id="jcs-03-kmo"/>
+                <constraint firstItem="DHg-qu-Mbm" firstAttribute="bottom" secondItem="W73-Y6-ar5" secondAttribute="bottom" constant="10" id="bBt-yj-V9r"/>
                 <constraint firstItem="DHg-qu-Mbm" firstAttribute="trailing" secondItem="YAg-Wl-8Sb" secondAttribute="trailing" constant="10" id="lbd-gS-eOn"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="DHg-qu-Mbm"/>
             <size key="customSize" width="436" height="102"/>
             <connections>
                 <outlet property="albumImage" destination="f6e-Xi-OLD" id="XmR-Eh-GtB"/>
+                <outlet property="availableLabel" destination="W73-Y6-ar5" id="e7j-8V-gBn"/>
                 <outlet property="nameLabel" destination="YAg-Wl-8Sb" id="098-nV-rRF"/>
             </connections>
             <point key="canvasLocation" x="152" y="81"/>

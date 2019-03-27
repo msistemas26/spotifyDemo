@@ -124,6 +124,8 @@ class ArtistDetailsViewController: UIViewController, ArtistDetailsDisplayLogic, 
     }
     
     func showError(message: String) {
+        refreshControl.endRefreshing()
+        self.stopAnimating(nil)
         self.showToast(message: message)
     }
 }
@@ -152,7 +154,22 @@ extension ArtistDetailsViewController: UICollectionViewDelegate, UICollectionVie
     }
     
     func collectionView(_ collectionView: UICollectionView,layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.frame.width, height: 100)
+        var height = CGFloat(100.0)
+        let displayedArtistAlbum = displayedArtistAlbums[indexPath.row]
+        
+        if let message = displayedArtistAlbum.availableMarkets, let font = DefaultFonts.RobotoRegular {
+            let size = CGSize(width: collectionView.frame.width - 100, height: 1000)
+            let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
+            let estimatedFrame =  NSString(string: message).boundingRect(
+                with: size,
+                options: options,
+                attributes: [NSAttributedString.Key.font: font],
+                context: nil)
+            height += estimatedFrame.height
+        } else {
+            height += 0
+        }
+        return CGSize(width: collectionView.frame.width, height: height)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {

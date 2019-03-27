@@ -125,6 +125,8 @@ class ArtistListViewController: UIViewController, ArtistListDisplayLogic, NVActi
     }
     
     func showError(message: String){
+        refreshControl.endRefreshing()
+        self.stopAnimating(nil)
         self.showToast(message: message)
     }
 }

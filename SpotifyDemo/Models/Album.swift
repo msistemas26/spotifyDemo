@@ -21,6 +21,7 @@ struct Album: Codable {
     let totalTracks: Int?
     let type: String?
     let uri: String?
+    let availableMarkets: [String]?
     let artists: [Artist]
     
     enum CodingKeys: String, CodingKey {
@@ -34,6 +35,7 @@ struct Album: Codable {
         case releaseDate = "release_date"
         case releaseDatePrecision = "release_date_precision"
         case totalTracks = "total_tracks"
+        case availableMarkets = "available_markets"
         case type
         case uri
         case artists

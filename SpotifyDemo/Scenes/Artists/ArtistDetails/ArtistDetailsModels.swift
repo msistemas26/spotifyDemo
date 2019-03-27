@@ -28,6 +28,7 @@ enum ArtistDetails
                 let id: String
                 let name: String?
                 let imageUrl: String?
+                let availableMarkets: String?
             }
             var displayedArtistAlbums: [DisplayedArtistAlbum]
         }

@@ -12,7 +12,7 @@ import Alamofire
 enum API
 {
     static let path = "https://api.spotify.com/v1/"
-    static let token = "Bearer BQBjuBF6KNmISUESTh3J-yPk_lyGTNxH3t-trRLibbAUp-t7PB03ozjw4r_ffYP0KG_3KehfoGApsFgCL85jl31w3AgiTt4uWz42Ct0Xu2bHPYI-1UDH5BcgMtr1-zPVg-85FI986RF-6XODsXYSF1Q"
+    static let token = "Bearer BQBWkfMzFkihld0ujnVuUO8qUNVb4lNvndsei6dZD2ST4Eyd-EnjIePgJxTxMA-6gYJolawccImMK_w_wOIvrI3qQqsedV2U9ckXC2W1g0u6HGdfX3kLDME3ijs1DQX6qlDST2khS-QShRopT4tgXF0"
 }
 
 enum Endpoint
@@ -31,6 +31,15 @@ enum params
     static let includeGroups = "include_groups"
 }
 
+struct ErrorResponseData: Codable {
+    let error: ErrorResponse?
+    static let unknown = "Unknown errror!"
+}
+struct ErrorResponse: Codable {
+    let message: String?
+    let status: Int?
+}
+
 final class DataProviderApi
 {
     
@@ -39,7 +48,7 @@ final class DataProviderApi
         //TO DO
     }
     
-    func searchArtistsBy(name: String?, completionHandler completion: @escaping ([Artist], Error?) -> Void)
+    func searchArtistsBy(name: String?, completionHandler completion: @escaping ([Artist], ErrorResponse?) -> Void)
     {
         guard let nameString = name, !nameString.isEmpty,
             let qName = nameString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed) else {
@@ -57,6 +66,7 @@ final class DataProviderApi
             .request(urlString,
                      method: .get,
                      headers: headers)
+            .validate(statusCode: 200..<300)
             .responseJSON { response in
                 guard let jsonData = response.data else {
                     completion([],nil)
@@ -65,19 +75,28 @@ final class DataProviderApi
                 do {
                     let decoder = JSONDecoder()
                     decoder.dateDecodingStrategy = .iso8601
-                    let artistsResponse = try decoder.decode(ArtistsResponse.self, from:
-                        jsonData)
-                    completion(artistsResponse.artists?.items ?? [], nil)
+                    switch response.result{
+                    case .success( _ as [String:Any]):
+                        let artistsResponse = try decoder.decode(ArtistsResponse.self, from:
+                            jsonData)
+                        completion(artistsResponse.artists?.items ?? [], nil)
+                    case .failure( _):
+                        let errorResponse = try decoder.decode(ErrorResponseData.self, from:
+                            jsonData)
+                        completion([], errorResponse.error)
+                    default:
+                        completion([],ErrorResponse(message: ErrorResponseData.unknown, status: 500))
+                    }
                 } catch let parsingError {
                     print("Error", parsingError)
-                    completion([],parsingError)
+                    completion([],ErrorResponse(message: ErrorResponseData.unknown, status: 500))
                 }
         }
     }
     
-    func searchAlbumsBy(artistId: String, completionHandler completion: @escaping ([Album],Error?) -> Void)
+    func searchAlbumsBy(artistId: String, completionHandler completion: @escaping ([Album],ErrorResponse?) -> Void)
     {
-        let urlString = API.path + Endpoint.albums + "?\(params.includeGroups)=single%2Cappears_on&\(params.market)=US&\(params.limit)=10&\(params.offset)=5"
+        let urlString = API.path + Endpoint.albums + "?\(params.includeGroups)=single%2Cappears_on&\(params.limit)=10&\(params.offset)=5"
         
         let urlAlbumsString = urlString.replacingOccurrences(of: "{id}", with: artistId)
         
@@ -97,12 +116,21 @@ final class DataProviderApi
                 do {
                     let decoder = JSONDecoder()
                     decoder.dateDecodingStrategy = .iso8601
-                    let alabumsResponse = try decoder.decode(AlbumsResponse.self, from:
-                        jsonData)
-                    completion(alabumsResponse.items ?? [],nil)
+                    switch response.result{
+                    case .success( _ as [String:Any]):
+                        let alabumsResponse = try decoder.decode(AlbumsResponse.self, from:
+                            jsonData)
+                        completion(alabumsResponse.items ?? [], nil)
+                    case .failure( _):
+                        let errorResponse = try decoder.decode(ErrorResponseData.self, from:
+                            jsonData)
+                        completion([], errorResponse.error)
+                    default:
+                        completion([],ErrorResponse(message: ErrorResponseData.unknown, status: 500))
+                    }
                 } catch let parsingError {
                     print("Error", parsingError)
-                    completion([],parsingError)
+                    completion([],ErrorResponse(message: ErrorResponseData.unknown, status: 500))
                 }
         }
     }

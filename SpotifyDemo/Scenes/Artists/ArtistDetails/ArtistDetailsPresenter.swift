@@ -11,7 +11,7 @@ import UIKit
 protocol ArtistDetailsPresentationLogic
 {
     func presentArtistAlbums(response: ArtistDetails.FetchArtistAlbums.Response)
-    func showError(error: Error)
+    func showError(error: ErrorResponse)
 }
 
 class ArtistDetailsPresenter: ArtistDetailsPresentationLogic
@@ -25,7 +25,8 @@ class ArtistDetailsPresenter: ArtistDetailsPresentationLogic
      	var fetchedArtistAlbums: [ArtistDetails.FetchArtistAlbums.ViewModel.DisplayedArtistAlbum] = []
         for fetchedArtistAlbum in response.fetchedArtistAlbums
         {
-            let displayedArtistAlbums = ArtistDetails.FetchArtistAlbums.ViewModel.DisplayedArtistAlbum(id: fetchedArtistAlbum.id, name: fetchedArtistAlbum.name, imageUrl: fetchedArtistAlbum.images?.first?.url)
+            let availableMarket = fetchedArtistAlbum.availableMarkets?.joined(separator:", ")
+            let displayedArtistAlbums = ArtistDetails.FetchArtistAlbums.ViewModel.DisplayedArtistAlbum(id: fetchedArtistAlbum.id, name: fetchedArtistAlbum.name, imageUrl: fetchedArtistAlbum.images?.first?.url,availableMarkets: availableMarket)
             
             fetchedArtistAlbums.append(displayedArtistAlbums)
         }
@@ -33,7 +34,7 @@ class ArtistDetailsPresenter: ArtistDetailsPresentationLogic
         viewController?.displayArtistAlbums(viewModel: viewModel)
      }
     
-    func showError(error: Error){
-        viewController?.showError(message: error.localizedDescription)
+    func showError(error: ErrorResponse){
+        viewController?.showError(message: error.message ?? ErrorResponseData.unknown)
     }
 }

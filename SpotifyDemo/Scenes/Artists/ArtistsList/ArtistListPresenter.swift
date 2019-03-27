@@ -11,7 +11,7 @@ import UIKit
 protocol ArtistListPresentationLogic
 {
     func presentArtists(response: ArtistList.FetchArtists.Response)
-    func showError(error: Error)
+    func showError(error: ErrorResponse)
 }
 
 class ArtistListPresenter: ArtistListPresentationLogic
@@ -33,7 +33,7 @@ class ArtistListPresenter: ArtistListPresentationLogic
         viewController?.displayArtists(viewModel: viewModel)
      }
     
-    func showError(error: Error){
-        viewController?.showError(message: error.localizedDescription)
+    func showError(error: ErrorResponse){
+        viewController?.showError(message: error.message ?? ErrorResponseData.unknown)
     }
 }
