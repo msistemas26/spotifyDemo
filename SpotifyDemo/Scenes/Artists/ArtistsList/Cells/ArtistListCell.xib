@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="ArtistListCell" customModule="SpotifyDemo" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="436" height="100"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="436" height="100"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Hr6-sf-vZj">
+                        <rect key="frame" x="10" y="10" width="80" height="80"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="80" id="QCG-Uo-Xqw"/>
+                            <constraint firstAttribute="width" constant="80" id="plY-cm-DlV"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Artist Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W1X-jg-bI2">
+                        <rect key="frame" x="100" y="24.5" width="91" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="followers:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iE2-9M-GGw">
+                        <rect key="frame" x="100" y="49.5" width="73" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tPg-8f-hJM">
+                        <rect key="frame" x="387.5" y="49.5" width="28.5" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstItem="iE2-9M-GGw" firstAttribute="centerY" secondItem="ZTg-uK-7eu" secondAttribute="centerY" constant="10" id="Hpa-Ae-o8R"/>
+                <constraint firstItem="iE2-9M-GGw" firstAttribute="leading" secondItem="W1X-jg-bI2" secondAttribute="leading" id="OxU-Nm-CI1"/>
+                <constraint firstItem="ZTg-uK-7eu" firstAttribute="trailing" secondItem="tPg-8f-hJM" secondAttribute="trailing" constant="20" id="S8A-tl-Qml"/>
+                <constraint firstItem="W1X-jg-bI2" firstAttribute="leading" secondItem="Hr6-sf-vZj" secondAttribute="trailing" constant="10" id="SOi-Bt-cAP"/>
+                <constraint firstItem="Hr6-sf-vZj" firstAttribute="leading" secondItem="ZTg-uK-7eu" secondAttribute="leading" constant="10" id="fcO-3Y-rP3"/>
+                <constraint firstItem="Hr6-sf-vZj" firstAttribute="centerY" secondItem="ZTg-uK-7eu" secondAttribute="centerY" id="gDX-Cy-f8Y"/>
+                <constraint firstItem="tPg-8f-hJM" firstAttribute="centerY" secondItem="iE2-9M-GGw" secondAttribute="centerY" id="mVO-gA-1jc"/>
+                <constraint firstItem="W1X-jg-bI2" firstAttribute="centerY" secondItem="ZTg-uK-7eu" secondAttribute="centerY" constant="-15" id="uIs-WG-CjR"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <size key="customSize" width="436" height="102"/>
+            <connections>
+                <outlet property="authorImage" destination="Hr6-sf-vZj" id="EWd-NJ-Gkp"/>
+                <outlet property="followerLabel" destination="iE2-9M-GGw" id="EA6-PW-vE8"/>
+                <outlet property="nameLabel" destination="W1X-jg-bI2" id="BY5-pM-nxn"/>
+                <outlet property="popularityLabel" destination="tPg-8f-hJM" id="ybk-pD-EYj"/>
+            </connections>
+            <point key="canvasLocation" x="44.799999999999997" y="91.754122938530742"/>
+        </collectionViewCell>
+    </objects>
+</document>
