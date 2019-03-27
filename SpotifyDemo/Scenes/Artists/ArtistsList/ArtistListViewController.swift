@@ -90,6 +90,10 @@ class ArtistListViewController: UIViewController, ArtistListDisplayLogic, NVActi
         view.backgroundColor = DefaultColors.graySelectedColor
     }
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
     private func setUpSearchBar(){
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false

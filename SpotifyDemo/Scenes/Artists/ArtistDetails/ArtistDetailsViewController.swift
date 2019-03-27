@@ -96,6 +96,10 @@ class ArtistDetailsViewController: UIViewController, ArtistDetailsDisplayLogic, 
         self.navigationItem.leftBarButtonItem = backButton
     }
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
     // MARK: Methods
     
     @objc func backAction() {

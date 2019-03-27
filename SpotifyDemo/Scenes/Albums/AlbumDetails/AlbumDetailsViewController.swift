@@ -81,6 +81,10 @@ class AlbumDetailsViewController: UIViewController, AlbumDetailsDisplayLogic
         self.navigationItem.leftBarButtonItem = backButton
     }
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
     @objc func backAction() {
         self.navigationController?.popViewController(animated: true)
     }
